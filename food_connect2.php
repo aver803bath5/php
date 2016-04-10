@@ -1,7 +1,7 @@
 <?php
 $host="127.0.0.1";
-$db_user="root";//用戶名
-$db_pass="xu3ru04bjo4";//密碼
+$db_user="";//用戶名
+$db_pass="";//密碼
 $db_name="ordering_sys";//數據庫
 $timezone="Asia/Taipei";
 
