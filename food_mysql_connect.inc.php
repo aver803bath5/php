@@ -5,9 +5,9 @@
 	date_default_timezone_set("Asia/Taipei");
 	$db_name = "ordering_sys";
 	//資料庫管理者帳號
-	$db_user = "root";
+	$db_user = "";
 	//資料庫管理者密碼
-	$db_passwd = "xu3ru04bjo4";
+	$db_passwd = "";
 
 	//對資料庫連線
 	if(!@mysql_connect("127.0.0.1", $db_user, $db_passwd))
