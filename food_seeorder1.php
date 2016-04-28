@@ -13,12 +13,12 @@
 		<center><b><font size="5" color=#FFA600	>
 		<img src="food_p\13.png" width="100px" ></image><br><br>
 		<?php
-			include('food_mysql_connect.inc.php');
-			mysql_select_db("ordering_sys");
+			require('food_connect2.php');
 			//列出總清單
 			//$show = "SELECT m.m_name, m.m_price,SUM(l.l_amount) total_amount　FROM orders o, line l, meal m, room r　WHERE o.o_id = l.o_id && l.m_id = m.m_id && r.r_id = 1 && o.r_id = r.r_id　GROUP BY m.m_name";
-			$read="SELECT * FROM meal";
-			$readresult=mysql_query($read);
+			$res_id=$_SESSION['r_id'];
+			$read="SELECT * FROM meal WHERE res_id='$res_id'";
+			$readresult=mysqli_query($link, $read);
 			$i=1;
 			echo "<table>";
 			echo "<tr><td><font size='5' color=#7878FF><b>";
@@ -32,7 +32,7 @@
 			echo "</td></tr>";
 			$totalcost=0;
 			$k=1;
-			while($result=mysql_fetch_row($readresult))
+			while($result=mysqli_fetch_array($readresult))
 			{
 				if($_SESSION["m_number"][$i] != NULL)
 				{
@@ -58,7 +58,7 @@
 					echo "<br></td></tr>";
 					$totalcost=$totalcost+$result[3]*$_SESSION["m_number"][$i];
 					$k=$k+1;
-				}	
+				}
 				$i=$i+1;
 			}
 			echo "</table>";

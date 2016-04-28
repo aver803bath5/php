@@ -1,4 +1,4 @@
-<?php 
+<?php
 include('food_notin.php');
 ?>
 <!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.2//EN" "http://www.openmobilealliance.org/tech/DTD/xhtml-mobile12.dtd">
@@ -10,22 +10,30 @@ include('food_notin.php');
 	</head>
 	<body background="food_p\back.jpg">
 		<br>
-		
+
 		<center><b><font size="6" color=#4F4FFF>
 		<div class="header">
 		<?php
+			require('food_connect2.php');
 			echo "◆◆ ".$_SESSION['r_name']." ◆◆";
+			$res_id=$_SESSION['r_id'];
+			$sql = "SELECT * FROM restaurant WHERE res_id='$res_id'";
+    			$result=mysqli_query($link, $sql);
+    			$row=mysqli_fetch_array($result);
+    			$rname=$row[1];
 		?></div>
-		<font size="5" color=#828282>
-		<table bgcolor="#FFC8B4">
-		<tr><td><font size="5" color=#828282><b>餐廳名稱：夫芙無國界料理店</td></tr><br>
-		<tr><td><font size="5" color=#828282><b>餐廳聯絡電話：07-3641871</td></tr><br>
-		<tr><td><font size="5" color=#828282><b>餐廳營業時段： 11:30~21:30</td></tr><br>
-		<tr><td><font size="5" color=#828282><b>取餐地點： 
-		<?php echo $_SESSION['r_place']; ?>	
+		<?php
+		echo "<font size='5' color=#828282>";
+		echo "<table bgcolor='#FFC8B4'>";
+		echo "<tr><td><font size='5' color=#828282><b>餐廳名稱：".$rname."</td></tr><br>";
+		echo "<tr><td><font size='5' color=#828282><b>餐廳聯絡電話：".$row[2]."</td></tr><br>";
+		echo "<tr><td><font size='5' color=#828282><b>餐廳營業時段： ".$row[3]."</td></tr><br>";
+		echo "<tr><td><font size='5' color=#828282><b>取餐地點：";
+		  ?>
+		<?php echo $_SESSION['r_place']; ?>
 		</td></tr><br>
 		<tr><td><font size="5" color=#828282><b>訂餐截止時間：
-		<?php echo $_SESSION['r_time']; ?>	
+		<?php echo $_SESSION['r_time']; ?>
 		</td></tr><br>
 		</table>
 		<br><br>
@@ -44,7 +52,7 @@ include('food_notin.php');
 		<a href="food_lobby.php">
 		<img src="food_p\16.png" width="140px"></image></a>
 		&nbsp;
-		
+
 		<img src="food_p\17.png" width="140px"></image>
 	</body>
 </html>

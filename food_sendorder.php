@@ -1,4 +1,4 @@
-<?php 
+<?php
 	include('food_notin.php');
 	if($_SESSION['r_name']==NULL)
 	{
@@ -15,15 +15,15 @@
 		<link href="buttons.css" rel="stylesheet">
 		<script type="text/javascript" src="buttons.js"></script>
 	</head>
-	<body background="food_p\back.jpg"> 
+	<body background="food_p\back.jpg">
 		<br><br>
 		<center><b><font size="5" color=#FFA600	>
 		<img src="food_p\14.png" width="100px" ></image><br><br>
 		<?php
-			include('food_mysql_connect.inc.php');
-			mysql_select_db("ordering_sys");
-			$read="SELECT * FROM meal";
-			$readresult=mysql_query($read);
+			require('food_connect2.php');
+			$res_id=$_SESSION['r_id'];
+			$read="SELECT * FROM meal WHERE res_id='$res_id'";
+			$readresult=mysqli_query($link, $read);
 			$i=1;
 			echo "<table>";
 			echo "<tr><td><font size='5' color=#7878FF><b>";
@@ -37,7 +37,7 @@
 			echo "</td></tr>";
 			$totalcost=0;
 			$k=1;
-			while($result=mysql_fetch_row($readresult))
+			while($result=mysqli_fetch_array($readresult))
 			{
 				if($_SESSION["m_number"][$i] != NULL)
 				{
@@ -62,7 +62,7 @@
 					echo "<br></td></tr>";
 					$totalcost=$totalcost+$result[3]*$_SESSION["m_number"][$i];
 					$k=$k+1;
-				}	
+				}
 				$i=$i+1;
 			}
 			echo "</table>";

@@ -1,4 +1,4 @@
-<?php 
+<?php
 include('food_notin.php');
 ?>
 <!-- <!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.2//EN" "http://www.openmobilealliance.org/tech/DTD/xhtml-mobile12.dtd"> -->
@@ -18,10 +18,10 @@ include('food_notin.php');
 		<br><br>
 		◇◇ 選擇餐點 ◇◇<br><br>
 		<?php
-			include('food_mysql_connect.inc.php');
-			mysql_select_db("ordering_sys");
-			$read="SELECT * FROM meal";
-			$readresult=mysql_query($read);
+			require('food_connect2.php');
+			$res_id=$_SESSION['r_id'];
+			$read="SELECT * FROM meal WHERE res_id='$res_id'";
+			$readresult=mysqli_query($link,$read);
 			$i=1;
 			echo "<table>";
 			echo "<tr><td><font size='5' color=#7878FF><b>";
@@ -32,10 +32,10 @@ include('food_notin.php');
 			echo "</td>";
 			echo "<td><center><font size='5' color=#7878FF><b>";
 			echo "數量　　<br>";
-			
+
 			echo "</td></tr>";
 			echo "<form action='food_session_num.php' method='post' name='order'>";
-			while($result=mysql_fetch_row($readresult))
+			while($result=mysqli_fetch_array($readresult))
 			{
 				if($i%2==0)
 				{
@@ -54,10 +54,10 @@ include('food_notin.php');
 				echo "</td>";
 				$num=$_SESSION["m_number"][$i];
 				echo "<td><input type=text size=4 name='m_number[$i]' value='$num'>";
-				echo "<br></td></tr>";	
+				echo "<br></td></tr>";
 				$i=$i+1;
 			}
-			
+
 			echo "</table>";
 		?>
 		<br>

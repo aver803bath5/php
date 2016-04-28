@@ -3,6 +3,7 @@
 	$_SESSION['r_name']=$_POST["r_name"];
 	$_SESSION['r_place']=$_POST["r_place"];
 	$_SESSION['r_time']=$_POST["r_time"];
+	$_SESSION['r_id']=$_POST['r_id'];
 	$r_name=$_SESSION['r_name'];
 	$r_place=$_SESSION['r_place'];
 
@@ -17,7 +18,6 @@
 
 	$result=mysqli_query($link,$sql);
 	$rows=mysqli_fetch_array($result);
-	$_SESSION['r_id']=$rows[0];//存下房間id
 	if($_POST["r_name"]==NULL || $_POST["r_place"]==NULL || $_POST["r_time"]==NULL)
 	{
 		header('Location:food_newroom.php');

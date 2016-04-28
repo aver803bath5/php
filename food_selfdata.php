@@ -14,14 +14,13 @@
 			<img src='food_p\six.png' width="100px" height="100px"></image>
 		<font size="5" color=#FFABAB>
 			<br><br>
-		<?php 
+		<?php
 			include('food_notin.php');
 			$id=$_SESSION['id'];
-			include('food_mysql_connect.inc.php');
-			mysql_select_db("ordering_sys");
+			require('food_connect2.php');
 			$read="SELECT * FROM user WHERE u_mail= '$id'";
-			$sql2=mysql_query($read);
-			$result=mysql_fetch_row(mysql_query($read));
+			$sql2=mysqli_query($link, $read);
+			$result=mysqli_fetch_array(mysqli_query($link, $read));
 			echo "$result[2]";
 			echo "<br>";
 			echo "<br>";

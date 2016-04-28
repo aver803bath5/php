@@ -10,13 +10,13 @@
 			<img src="food_p\1.jpg"
 			width="25%" height="25%"></image>
 		<br>
-		
+
 			<font size="5" color=#A3A3FF>
-			註冊帳號　 
+			註冊帳號　
 			<img src="food_p\5.jpg"
 			width="3%" height="5%"></image>
 			<font size="5" color=#A3A3FF>
-			　信箱認證　 
+			　信箱認證　
 			<img src="food_p\5.jpg"
 			width="3%" height="5%"></image>
 			<font size="5" color=#FF5959>
@@ -28,7 +28,7 @@
 		<br>
 		<br>
 		<?php
-			include("food_connect2.php");
+			require("food_connect2.php");
 			error_reporting(E_ALL);
 			$verify = stripslashes(trim($_GET['verify']));
 			$nowtime = time();
@@ -52,7 +52,7 @@
 					$msg = '恭喜您！您已正式成為會員。！';
 				}
 			}else{
-				$msg = 'error.';	
+				$msg = 'error.';
 			}
 
 			echo $msg;

@@ -1,15 +1,20 @@
 <?php
 	include('food_notin.php');
-	include('food_mysql_connect.inc.php');
+	require('food_connect2.php');
 
- 	$read = "SELECT * FROM meal";
-    $read_result = mysql_query($read);
+ 	$res_id=$_SESSION['r_id'];
+	$read="SELECT * FROM meal WHERE res_id='$res_id'";
+    $read_result = mysqli_query($link, $read);
+    	$sql = "SELECT * FROM restaurant WHERE res_id='$res_id'";
+    	$result=mysqli_query($link, $sql);
+    	$row=mysqli_fetch_array($result);
+    	$rname=$row[1];
 	// Remember to copy msjh.ttf to [path to tFPDF]/font/unifont/ directory
 	//  Initialize tFPDF
 	require('./fpdf/chinese-unicode.php');
 	$pdf = new PDF_Unicode();
 	$pdf->AddUniCNShwFont('Uni');
-	
+
 	$pdf->AddPage();
 
 	//  Add a Unicode font like MSJH
@@ -24,7 +29,7 @@
 	$reallytime=$nowTime->format("Y年m月d日，星期：D 時間：H:i:s");
 	$pdf->SetFont('Uni','',20);
 	$pdf->Cell(35,5,'餐廳名稱:');
-	$pdf->Cell(20,5,'夫芙無國界料理店');
+	$pdf->Cell(20,5,$row[1]);
 	$pdf->Ln(10);
 	$pdf->Cell(35,10,'訂餐時間:');
 	$pdf->Cell(20,10,$reallytime);
@@ -47,7 +52,7 @@
 	$pdf->Ln();
 	$i = 1;
 	$totalcost=0;
-	while($row=mysql_fetch_row($read_result)){
+	while($row=mysqli_fetch_array($read_result)){
 		if($_SESSION["m_number"][$i] != NULL)
 		{
 			$pdf->Cell(120,10,$row[2]);
@@ -65,12 +70,12 @@
 	$pdf->Cell(25,10,"總金額：");
 	$pdf->Cell(20,10,"$totalcost");
 	$pdf->Cell(15,10,"元");
-	
+
 	$pdf->SetY(266);//顯示位置
 	// $pdf->SetFont('Arial','I',8);//字型樣式
 	$pdf->Cell(0,10,$pdf->PageNo(),0,0,'C');//頁碼
 	// Output PDF document
-	$pdf->output("訂食吧訂單-夫芙無國界料理店(".$reallytime.").pdf" ,"I");
-	
+	$pdf->output("訂食吧訂單-".$rname."(".$reallytime.").pdf" ,"I");
+
 	//$pdf->Output();
 ?>
